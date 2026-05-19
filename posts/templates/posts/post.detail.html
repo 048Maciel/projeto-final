@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.title }} | Meu Blog</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+
+        /* Container principal */
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Header com navegação */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo a {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Card do post */
+        .post-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .post-title {
+            font-size: 2.2rem;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+            border-bottom: 3px solid #667eea;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        .post-meta {
+            color: #718096;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .post-content {
+            font-size: 1.1rem;
+            color: #2d3748;
+            margin: 1.5rem 0;
+            line-height: 1.8;
+        }
+
+        .post-content p {
+            margin-bottom: 1rem;
+        }
+
+        /* Botões de navegação */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #48bb78;
+        }
+
+        .btn-secondary:hover {
+            background: #38a169;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #667eea;
+            color: #667eea;
+        }
+
+        .btn-outline:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: #2d3748;
+            color: #a0aec0;
+            margin-top: 2rem;
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .post-title {
+                font-size: 1.5rem;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <a href="{% url 'home' %}">📝 Meu Blog</a>
+            </div>
+            <div class="nav-links">
+                <a href="{% url 'home' %}">🏠 Home</a>
+                <a href="{% url 'posts_list' %}">📋 Todos os Posts</a>
+                <a href="/admin/">🔐 Admin</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="post-card">
+            <h1 class="post-title">{{ post.title }}</h1>
+            
+            <div class="post-meta">
+                📅 Publicado em: {{ post.created_at|date:"d/m/Y H:i" }}
+            </div>
+            
+            <div class="post-content">
+                {{ post.content|linebreaks }}
+            </div>
+            
+            <div class="nav-buttons">
+                <a href="{% url 'posts_list' %}" class="btn btn-outline">← Ver todos os posts</a>
+                <a href="{% url 'home' %}" class="btn btn-secondary">🏠 Voltar para Home</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>📝 Meu Blog | Django Project | {{ posts|length }} posts publicados</p>
+    </footer>
+</body>
+</html>

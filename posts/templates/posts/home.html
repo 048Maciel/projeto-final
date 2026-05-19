@@ -1,6 +1,186 @@
-<h1>Homepage</h1>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Meu Blog</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-{% for post in posts %}
-    <h2>{{ post.title }}</h2>
-    <p>{{ post.content }}</p>
-{% endfor %}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            color: #1a1a2e;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .hero h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .post-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .post-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .post-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .post-title a {
+            color: #2d3748;
+            text-decoration: none;
+        }
+
+        .post-title a:hover {
+            color: #667eea;
+        }
+
+        .post-meta {
+            color: #718096;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .post-excerpt {
+            color: #4a5568;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: #2d3748;
+            color: #a0aec0;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .posts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>📝 Meu Blog</h1>
+        <p>Compartilhando ideias e conhecimentos</p>
+    </header>
+
+    <div class="container">
+        <div class="hero">
+            <h2>Bem-vindo ao Meu Blog!</h2>
+            <p>Explore os artigos mais recentes e compartilhe suas ideias</p>
+            <a href="{% url 'posts_list' %}" class="btn">Ver todos os posts →</a>
+        </div>
+
+        <h2>📌 Últimos Posts</h2>
+        
+        <div class="posts-grid">
+            {% for post in posts %}
+            <div class="post-card">
+                <h3 class="post-title">
+                    <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
+                </h3>
+                <div class="post-meta">
+                    📅 {{ post.created_at|date:"d/m/Y H:i" }}
+                </div>
+                <div class="post-excerpt">
+                    {{ post.content|truncatewords:20|linebreaks }}
+                </div>
+                <a href="{% url 'post_detail' post.id %}" class="read-more">Ler mais →</a>
+            </div>
+            {% empty %}
+            <div class="post-card">
+                <p>Nenhum post publicado ainda.</p>
+                <p>Acesse o <strong>/admin</strong> para criar seu primeiro post!</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>📝 Meu Blog | Desenvolvido com Django | {{ posts|length }} posts</p>
+    </footer>
+</body>
+</html>
