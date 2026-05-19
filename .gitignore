@@ -1,1 +1,51 @@
+# Ambiente virtual
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django
+db.sqlite3
+*.log
+media/
+staticfiles/
+
+# Variáveis de ambiente
 .env
+
+# VSCode
+.vscode/
+
+# PyCharm
+.idea/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Docker
+*.pid
+
+# Coverage / testes
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Arquivos temporários
+*.tmp
+*.swp
+
+# MyPy / lint
+.mypy_cache/
+.ruff_cache/
+
+# Build Python
+build/
+dist/
+*.egg-info/
+
+# Docker overrides opcionais
+docker-compose.override.yml
